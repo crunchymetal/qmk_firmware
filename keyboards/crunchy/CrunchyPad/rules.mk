@@ -20,3 +20,4 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 OLED_DRIVER = SSD1306
 OLED_ENABLE = yes
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
+ENCODER_ENABLE = yes
