@@ -1,45 +1,98 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
+ 
+    /* LAYER 0 (NUMPAD)
    *      ,-------------------.
-   *      | 01 | 02 | 03 | 04 |
+   *      |Lyer| /  | *  | -  |
    * ,----|----|----|----|----|
-   * | 10 | 11 | 12 | 13 |    |
-   * '----|----|----|----| 24 |
-   *      | 21 | 22 | 23 |    |
+   * |Mute| 7  | 8  | 9  |    |
+   * '----|----|----|----| +  |
+   *      | 4  | 5  | 6  |    |
    * ,----|----|----|----|----|
-   * | 30 | 31 | 32 | 33 |    |
-   * '----|----|----|----| 44 |
-   *      | 41 | 42 | 43 |    |
+   * |Calc| 1  | 2  | 3  |    |
+   * '----|----|----|----|Ent |
+   *      | 0  | 00 | .  |    |
    *      `-------------------'
      */
     [0] = LAYOUT(
-        _____,   KC_PSLS, KC_PAST, KC_PMNS,
-        KC_P7,   KC_P8,   KC_P9,   _______,
-        _____,   KC_P5,   KC_P6,   KC_PPLS,
-        KC_P1,   KC_P2,   KC_P3,   _______,
-        _____,   KC_PDOT, KC_PDOT,  KC_PENT
+        TO(3),   KC_PSLS, KC_PAST, KC_PMNS,
+        KC_MUTE, KC_P7,   KC_P8,   KCP9,
+        KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+        KC_CALC, KC_P1,   KC_P2,   KC_P3,
+        KC_P0,   KC_P0,   KC_PDOT, KC_PENT
     ),
 
-    /*
+    /* LAYER 1 (MACROS)
    *      ,-------------------.
-   *      | 01 | 02 | 03 | 04 |
+   *      |Lyer|H(/)|H(*)|H(-)|
    * ,----|----|----|----|----|
-   * | 10 | 11 | 12 | 13 |    |
-   * '----|----|----|----| 24 |
-   *      | 21 | 22 | 23 |    |
+   * |Rec1|H(7)|H(8)|H(9)|    |
+   * '----|----|----|----|Ply1|
+   *      |H(4)|H(5)|H(6)|    |
    * ,----|----|----|----|----|
-   * | 30 | 31 | 32 | 33 |    |
-   * '----|----|----|----| 44 |
-   *      | 41 | 42 | 43 |    |
+   * |Rec2|H(1)|H(2)|H(3)|    |
+   * '----|----|----|----|Ply2|
+   *      |H(0)|H(S)|H(.)|    |
    *      `-------------------'
      */
     [1] = LAYOUT(
-        _______, _______, _______, _______,
-        KC_HOME, KC_UP,   KC_PGUP,
-        KC_LEFT, XXXXXXX, KC_RGHT, _______,
-        KC_END,  KC_DOWN, KC_PGDN,
-        KC_INS,           KC_DEL,  _______
-    )
+        TO(3),       HYPR(KC_PSLS), HYPR(KC_PAST), HYPR(KC_PMNS),
+        DM_REC1,     HYPR(KC_P7),   HYPR(KC_P8),   HYPR(KC_P9),
+        HYPR(KC_P4), HYPR(KC_P5),   HYPR(KC_P6),   DM_PLY1,
+        DM_REC2,     HYPR(KC_P1),   HYPR(KC_P2),   HYPR(KC_P3),
+        HYPR(KC_P0), HYPR(KC_SPC),  HYPR(KC_PDOT), DM_PLY2
+    ),
+
+    /* LAYER 2 (RGB CONTROL)
+   *      ,-------------------.
+   *      |Lyer|    |    |    |
+   * ,----|----|----|----|----|
+   * |    | M7 | M8 | M9 |    |
+   * '----|----|----|----|SAI |
+   *      | M4 | M5 | M6 |    |
+   * ,----|----|----|----|----|
+   * |Tog | M1 | M2 | M3 |    |
+   * '----|----|----|----|SAD |
+   *      | M0 |    |    |    |
+   *      `-------------------'
+     */
+    [2] = LAYOUT(
+        TO(3),   XXXXXXX, XXXXXXX,  XXXXXXX,
+        XXXXXXX, RGB_M_T, RGB_M_TW, RGB_M_B,
+        RGB_M_K, RGB_M_X, RGB_M_G,  RGB_SAI,
+        RGB_TOG, RGB_M_R, RGB_M_SW, RGB_M_SN,
+        RGB_M_P, XXXXXXX, XXXXXXX,  RGB_SAD
+    ),
+
+    /* LAYER 3 (LAYER SELECT)
+   *      ,-------------------.
+   *      |    | L0 | L1 | L2 |
+   * ,----|----|----|----|----|
+   * |    |    |    |    |    |
+   * '----|----|----|----|    |
+   *      |    |    |    |    |
+   * ,----|----|----|----|----|
+   * |    |    |    |    |    |
+   * '----|----|----|----|    |
+   *      |    |    |    |    |
+   *      `-------------------'
+     */
+    [3] = LAYOUT(
+        XXXXXXX, TO(0),   TO(1),   TO(2),
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    ),
 };
+
+/* Encoder Mapping */
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_WH_U, KC_MW_D)  },
+    [1] = { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT),          ENCODER_CCW_CW(KC_UP, KC_DOWN)    },
+    [2] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_VAD, RGB_VAI)  },
+    [3] = { ENCODER_CCW_CW(KC_NO, KC_NO),               ENCODER_CCW_CW(KC_NO, KC_NO)      },
+};
+#endif
