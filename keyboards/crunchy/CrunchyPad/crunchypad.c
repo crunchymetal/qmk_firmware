@@ -17,7 +17,7 @@ bool oled_task_kb(void) {
       oled_write_ln_P(PSTR(" BAS"), false);
       break;
     case 1:
-      oled_write_ln_P(PSTR(" NAV"), false);
+      oled_write_ln_P(PSTR(" MAC"), false);
       break;
     case 2:
       oled_write_ln_P(PSTR(" RGB"), false);
