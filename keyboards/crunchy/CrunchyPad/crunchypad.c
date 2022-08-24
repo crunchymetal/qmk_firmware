@@ -14,17 +14,17 @@ bool oled_task_kb(void) {
   oled_write_P(PSTR("Layer"), false);
   switch (get_highest_layer(layer_state)) {
     case 0:
-      oled_write_ln_P(PSTR(" BAS"), false);
+      oled_write_ln_P(PSTR(" NUM"), false);
       break;
     case 1:
-      oled_write_ln_P(PSTR(" MAC"), false);
+      oled_write_ln_P(PSTR("MACRO"), false);
       break;
     case 2:
       oled_write_ln_P(PSTR(" RGB"), false);
       break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR(" UND"), false);
+      oled_write_ln_P(PSTR(""), false);
   }
 
   // Host Keyboard LED Status
