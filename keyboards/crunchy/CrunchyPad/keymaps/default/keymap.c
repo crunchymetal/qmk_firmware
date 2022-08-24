@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '----|----|----|----|    |
    *      |    |    |    |    |
    * ,----|----|----|----|----|
-   * |    |    |    |    |    |
+   * |BOOT|    |    |    |    |
    * '----|----|----|----|NUM |
    *      |    |    |    |    |
    *      `-------------------'
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, TO(0),   TO(1),   TO(2),
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM
     ),
 };
