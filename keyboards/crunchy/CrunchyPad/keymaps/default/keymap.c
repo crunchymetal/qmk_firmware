@@ -1,16 +1,11 @@
 #include QMK_KEYBOARD_H
 
-// Tap Dance declarations
+// Tapdance enum
 enum {
-    TD_BOOT,
+    TD_RESET = 0
 };
 
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
-    [TD_BOOT] = ACTION_TAP_DANCE_DOUBLE(KC_NO, QK_BOOT),
-};
-
+// Main keymapping
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
     /* LAYER 0 (NUMPAD)
@@ -84,21 +79,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '----|----|----|----|    |
    *      |    |    |    |    |
    * ,----|----|----|----|----|
-   * |BOOT|    |    |    |    |
+   * |RST |    |    |    |    |
    * '----|----|----|----|NUM |
    *      |    |    |    |    |
    *      `-------------------'
      */
     [3] = LAYOUT(
         XXXXXXX, TO(0),   TO(1),   TO(2),
-        XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX,
-        TD(TD_BOOT), XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX,     XXXXXXX, XXXXXXX, KC_NUM
+        XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX,
+        TD(TD_RESET), XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX,      XXXXXXX, XXXXXXX, KC_NUM
     ),
 };
 
-/* Encoder Mapping */
+// Encoder mapping
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_WH_U, KC_WH_D)  },
@@ -107,3 +102,17 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [3] = { ENCODER_CCW_CW(KC_NO, KC_NO),               ENCODER_CCW_CW(KC_NO, KC_NO)      },
 };
 #endif
+
+// Tapdance reset function
+void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count >= 5) {
+    // Reset the keyboard if you tap the key more than five times
+    reset_keyboard();
+    reset_tap_dance(state);
+  }
+}
+
+// Tapdance call
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_RESET] = ACTION_TAP_DANCE_FN(safe_reset)
+};
