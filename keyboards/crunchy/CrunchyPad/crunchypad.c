@@ -17,14 +17,14 @@ bool oled_task_kb(void) {
       oled_write_ln_P(PSTR(" NUM"), false);
       break;
     case 1:
-      oled_write_ln_P(PSTR("MACRO"), false);
+      oled_write_ln_P(PSTR(" MCR"), false);
       break;
     case 2:
       oled_write_ln_P(PSTR(" RGB"), false);
       break;
     default:
       // Or use the write_ln shortcut over adding '\n' to the end of your string
-      oled_write_ln_P(PSTR(""), false);
+      oled_write_ln_P(PSTR(" "), false);
   }
 
   // Host Keyboard LED Status
