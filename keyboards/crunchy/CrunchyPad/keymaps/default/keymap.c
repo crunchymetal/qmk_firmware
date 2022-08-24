@@ -5,6 +5,20 @@ enum {
     TD_RESET = 0
 };
 
+// Tapdance reset function
+void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count >= 5) {
+    // Reset the keyboard if you tap the key more than five times
+    reset_keyboard();
+    reset_tap_dance(state);
+  }
+}
+
+// Tapdance call
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_RESET] = ACTION_TAP_DANCE_FN(safe_reset)
+};
+
 // Main keymapping
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
@@ -102,17 +116,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [3] = { ENCODER_CCW_CW(KC_NO, KC_NO),               ENCODER_CCW_CW(KC_NO, KC_NO)      },
 };
 #endif
-
-// Tapdance reset function
-void safe_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 5) {
-    // Reset the keyboard if you tap the key more than five times
-    reset_keyboard();
-    reset_tap_dance(state);
-  }
-}
-
-// Tapdance call
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_RESET] = ACTION_TAP_DANCE_FN(safe_reset)
-};
