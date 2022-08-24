@@ -2,7 +2,7 @@
 MCU = atmega32u4
 
 # Bootloader selection
-BOOTLOADER = caterina
+BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change yes to no to disable
@@ -23,3 +23,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
+TAP_DANCE_ENABLE = yes

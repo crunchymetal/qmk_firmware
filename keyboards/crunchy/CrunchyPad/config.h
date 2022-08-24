@@ -34,6 +34,9 @@
 #define ENCODERS_PAD_A { D5, C7 }
 #define ENCODERS_PAD_B { B7, F1 }
 
+/* Define tapdance time limit */
+#define TAPPING_TERM 200
+
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 

@@ -1,5 +1,16 @@
 #include QMK_KEYBOARD_H
 
+// Tap Dance declarations
+enum {
+    TD_BOOT,
+};
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_RESET] = ACTION_TAP_DANCE_DOUBLE(KC_NO, QK_BOOT),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
     /* LAYER 0 (NUMPAD)
@@ -80,10 +91,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [3] = LAYOUT(
         XXXXXXX, TO(0),   TO(1),   TO(2),
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM
+        XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX,
+        TD(TD_BOOT), XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX,     XXXXXXX, XXXXXXX, KC_NUM
     ),
 };
 
