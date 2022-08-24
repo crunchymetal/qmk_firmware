@@ -25,7 +25,7 @@
 /* Underlight configuration */
 #define RGB_DI_PIN B3
 #define RGBLED_NUM 9
-//#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_ANIMATIONS
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 2
